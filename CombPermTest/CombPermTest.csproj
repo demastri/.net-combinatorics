@@ -52,10 +52,6 @@
       <Project>{f98c6427-7607-4d27-abc8-f4054c7c56e1}</Project>
       <Name>Combinatorics</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CommonTools\CommonTools.csproj">
-      <Project>{713acf6b-07a9-4912-867e-638b1087ed06}</Project>
-      <Name>CommonTools</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
