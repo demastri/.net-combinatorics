@@ -11,6 +11,7 @@ namespace JPD.Combinatorics
         public Permutations(List<uint> howMany)
             : base(howMany, null)
         {
+            PermBaseInit(howMany, null);
         }
         public Permutations(uint total)
             : base(total, null)
@@ -24,6 +25,7 @@ namespace JPD.Combinatorics
         public Permutations(List<uint> howMany, List<T> eMap)
             : base((uint)howMany.Count, (uint)howMany.Count, true, eMap)
         {
+            PermBaseInit(howMany, eMap);
             seqConsituents = howMany;
             // should be able to assert that howMant.Count == total
         }
@@ -33,6 +35,15 @@ namespace JPD.Combinatorics
         }
 
         // internal methods / elements
+        protected void PermBaseInit(List<uint> howMany, List<T> eMap)
+        {
+            uint totalCount = 0;
+            foreach (uint i in howMany)
+                totalCount += i;
+
+            BaseInit(totalCount, totalCount, true, eMap);
+        }
+
         private List<uint> seqConsituents;
 
         private int SwapForNextSmallestSeqConstituent(int curIndex, int swapItem)
@@ -89,8 +100,9 @@ namespace JPD.Combinatorics
                     internalCurrent.Add(allowRepetition ? 0 : i);
                 int thisIndex = 0;
                 for (uint i = 0; i < from; i++)
-                    for (int j = 0; j < seqConsituents[(int)i]; j++)
-                        internalCurrent[thisIndex++] = i;
+                    if( i < seqConsituents.Count )
+                        for (int j = 0; j < seqConsituents[(int)i]; j++)
+                            internalCurrent[thisIndex++] = i;
                 return true;
             }
             return base.InitSequence();

@@ -68,7 +68,7 @@ namespace JPD.Combinatorics
         protected bool allowRepetition;
         protected List<uint> internalCurrent;
 
-        private void BaseInit(uint howMany, uint total, bool rep, List<T> eMap)
+        protected void BaseInit(uint howMany, uint total, bool rep, List<T> eMap)
         {
             allowRepetition = rep;
 
