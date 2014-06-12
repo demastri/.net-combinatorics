@@ -76,7 +76,7 @@ namespace CombPermTest
 
         }
 
-        private static void PrintList<T>(CombinatoricsOutputList<T> b)
+        private static void PrintList<T>(Combinatorics<T>.OutputList b)
         {
             Console.Write("<");
             string sep = "";
