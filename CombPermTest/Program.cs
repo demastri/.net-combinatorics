@@ -11,127 +11,81 @@ namespace CombPermTest
     {
         static void Main(string[] args)
         {
-            bool printDetail = false;
+            bool printDetail = true;
 
             Combinations newComb = new Combinations(3, 6);
             int ct;
-            for (ct = 0, newComb.First(); !newComb.AtEnd; newComb.Next())
-            {
-                if( printDetail )
-                    Console.WriteLine("<" + newComb.Current[0] + "," + newComb.Current[1] + "," + newComb.Current[2] + ">");
-                ct++;
-            }
+            for (ct = 0, newComb.First(); !newComb.AtEnd; newComb.Next(), ct++)
+                if (printDetail)
+                    PrintList(newComb.Current);
             Console.WriteLine(ct.ToString() + " comb for [6,3]");
 
             newComb = new Combinations(3, 6, true);
-            for (ct = 0, newComb.First(); !newComb.AtEnd; newComb.Next())
-            {
+            for (ct = 0, newComb.First(); !newComb.AtEnd; newComb.Next(), ct++)
                 if (printDetail)
-                    Console.WriteLine("<" + newComb.Current[0] + "," + newComb.Current[1] + "," + newComb.Current[2] + ">");
-                ct++;
-            }
+                    PrintList(newComb.Current);
             Console.WriteLine(ct.ToString() + " comb (with dup) for [6,3]");
 
             Variations newVar = new Variations(3, 6);
-            for (ct = 0, newVar.First(); !newVar.AtEnd; newVar.Next())
-            {
+            for (ct = 0, newVar.First(); !newVar.AtEnd; newVar.Next(), ct++)
                 if (printDetail)
-                    Console.WriteLine("<" + newComb.Current[0] + "," + newComb.Current[1] + "," + newComb.Current[2] + ">");
-                ct++;
-            }
+                    PrintList(newVar.Current);
             Console.WriteLine(ct.ToString() + " var for [6,3]");
 
             newVar = new Variations(3, 6, true);
-            for (ct = 0, newVar.First(); !newVar.AtEnd; newVar.Next())
-            {
+            for (ct = 0, newVar.First(); !newVar.AtEnd; newVar.Next(), ct++)
                 if (printDetail)
-                    Console.WriteLine("<" + newComb.Current[0] + "," + newComb.Current[1] + "," + newComb.Current[2] + ">");
-                ct++;
-            }
+                    PrintList(newVar.Current);
             Console.WriteLine(ct.ToString() + " var (with dup) )for [6,3]");
 
             Permutations newPerm = new Permutations(6);
-            for (ct = 0, newPerm.First(); !newPerm.AtEnd; newPerm.Next())
-            {
+            for (ct = 0, newPerm.First(); !newPerm.AtEnd; newPerm.Next(), ct++)
                 if (printDetail)
-                {
-                    Console.Write("<");
-                    for (int i = 0; i < 6; i++)
-                    {
-                        Console.Write(newPerm.Current[i] + (i < 5 ? "," : ""));
-                    }
-                    Console.WriteLine(">");
-                }
-                ct++;
-            }
+                    PrintList(newPerm.Current);
             Console.WriteLine(ct.ToString() + " perm for [6,3]");
 
-            List<uint> seqDetails = new List<uint>() { 1,3,0,0,2,0 };
-            newPerm = new Permutations(seqDetails, 6);
-            for (ct = 0, newPerm.First(); !newPerm.AtEnd; newPerm.Next())
-            {
+            List<uint> seqDetails = new List<uint>() { 1, 3, 0, 0, 2, 0 };
+            newPerm = new Permutations(seqDetails);
+            for (ct = 0, newPerm.First(); !newPerm.AtEnd; newPerm.Next(), ct++)
                 if (printDetail)
-                {
-                    Console.Write("<");
-                    for (int i = 0; i < 6; i++)
-                    {
-                        Console.Write(newPerm.Current[i] + (i < 5 ? "," : ""));
-                    }
-                    Console.WriteLine(">");
-                }
-                ct++;
-            }
+                    PrintList(newPerm.Current);
             Console.Write(ct.ToString() + " perm (with dup) )for [6,<");
             for (int i = 0; i < 6; i++)
-            {
                 Console.Write(seqDetails[i].ToString() + (i < 5 ? "," : ""));
-            }
             Console.WriteLine(">]");
 
             seqDetails = new List<uint>() { 1, 2, 2, 0, 0 };
-            newPerm = new Permutations(seqDetails, 5);
-            for (ct = 0, newPerm.First(); !newPerm.AtEnd; newPerm.Next())
-            {
-                if (true || printDetail)
-                {
-                    Console.Write("<");
-                    for (int i = 0; i < 5; i++)
-                    {
-                        Console.Write(newPerm.Current[i] + (i < 4 ? "," : ""));
-                    }
-                    Console.WriteLine(">");
-                }
-                ct++;
-            }
+            newPerm = new Permutations(seqDetails);
+            for (ct = 0, newPerm.First(); !newPerm.AtEnd; newPerm.Next(), ct++)
+                if (printDetail)
+                    PrintList(newPerm.Current);
             Console.Write(ct.ToString() + " perm (with dup) )for [6,<");
             for (int i = 0; i < 5; i++)
-            {
                 Console.Write(seqDetails[i].ToString() + (i < 4 ? "," : ""));
-            }
             Console.WriteLine(">]");
 
-            MappedPermutations<string> newStringPerm = new MappedPermutations<string>(seqDetails, 5);
-            newStringPerm.ElementMap = new List<string>() { "a", "b", "a", "d", "e", "f" };
-            for (ct = 0, newStringPerm.First(); !newStringPerm.AtEnd; newStringPerm.Next())
-            {
-                if (true || printDetail)
-                {
-                    Console.Write("<");
-                    for (int i = 0; i < 5; i++)
-                    {
-                        Console.Write(newStringPerm.Current[i] + (i < 4 ? "," : ""));
-                    }
-                    Console.WriteLine(">");
-                }
-                ct++;
-            }
+            List<string> myElts = new List<string>() { "a", "b", "a", "d", "e", "f" };
+            Permutations<string> newStringPerm = new Permutations<string>(seqDetails, myElts);
+            for (ct = 0, newStringPerm.First(); !newStringPerm.AtEnd; newStringPerm.Next(), ct++)
+                if (printDetail)
+                    PrintList(newStringPerm.Current);
             Console.Write(ct.ToString() + " perm (with dup) )for [6,<");
             for (int i = 0; i < 5; i++)
-            {
-                Console.Write(newStringPerm.ElementMap[i].ToString() + (i < 4 ? "," : ""));
-            }
+                Console.Write(myElts[i].ToString() + (i < 4 ? "," : ""));
             Console.WriteLine(">]");
 
+        }
+
+        private static void PrintList<T>(CombinatoricsOutputList<T> b)
+        {
+            Console.Write("<");
+            string sep = "";
+            for (int i = 0; i < b.Count; i++)
+            {
+                Console.Write(sep + b[i].ToString());
+                sep = ",";
+            }
+            Console.WriteLine(">");
         }
     }
 }

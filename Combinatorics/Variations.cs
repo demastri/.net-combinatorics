@@ -6,36 +6,27 @@ using System.Threading.Tasks;
 
 namespace JPD.Combinatorics
 {
-    public class MappedVariations<T> : Variations
+    public class Variations : Variations<uint>
     {
-        new public CombinatoricItemList<T> Current;
-        public List<T> ElementMap
+        public Variations(uint howMany, uint total)
+            : base(howMany, total, false, null)
         {
-            get { return Current.ElementMap; }
-            set { Current.ElementMap = value; }
         }
-        
-        public MappedVariations(uint howMany, uint total)
-            : base(howMany, total)
+        public Variations(uint howMany, uint total, bool dup)
+            : base(howMany, total, dup, null)
         {
-            Current = new CombinatoricItemList<T>(this);
-        }
-        public MappedVariations(uint howMany, uint total, bool dup)
-            : base(howMany, total, dup)
-        {
-            Current = new CombinatoricItemList<T>(this);
         }
     }
 
-    public class Variations : CombinatoricsBase
+    public class Variations<T> : Combinatorics<T>
     {
         // variatons is a selection of all order-dependent arrangements of the given number of characters in a sequence
-        public Variations(uint howMany, uint total, bool dup)
-            : base(howMany, total, dup)
+        public Variations(uint howMany, uint total, bool dup, List<T> eMap)
+            : base(howMany, total, dup, eMap)
         {
         }
-        public Variations(uint howMany, uint total)
-            : base(howMany, total, false)
+        public Variations(uint howMany, uint total, List<T> eMap)
+            : base(howMany, total, false, eMap)
         {
         }
         // internal methods

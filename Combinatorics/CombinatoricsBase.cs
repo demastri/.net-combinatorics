@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JPD.Combinatorics
 {
-    abstract public class CombinatoricsBase
+    abstract public class Combinatorics<T>
     {
         /// general (re)introducion to this
         /// order doesn't matter
@@ -34,12 +34,18 @@ namespace JPD.Combinatorics
 
         #region external interface
 
+        protected List<T> ElementMap
+        {
+            get { return Current.ElementMap; }
+            set { Current.ElementMap = value; }
+        }
+
         public bool AtEnd;
 
         // initializer - set up the sequence of howMany I need to pick from a total of total elts
-        public CombinatoricsBase(uint howMany, uint total, bool rep)
+        public Combinatorics(uint howMany, uint total, bool rep, List<T> eMap)
         {
-            BaseInit(howMany, total, rep);
+            BaseInit(howMany, total, rep, eMap);
         }
 
         public bool Reset()
@@ -67,7 +73,7 @@ namespace JPD.Combinatorics
         protected bool allowRepetition;
         public List<uint> internalCurrent;
 
-        private void BaseInit(uint howMany, uint total, bool rep)
+        private void BaseInit(uint howMany, uint total, bool rep, List<T> eMap)
         {
             allowRepetition = rep;
 
@@ -76,7 +82,8 @@ namespace JPD.Combinatorics
 
             AtEnd = from < pick;
             internalCurrent = null;
-            Current = new CombinatoricBaseItemList(this);
+            Current = new CombinatoricsOutputList<T>(this);
+            ElementMap = eMap;
         }
         protected virtual bool InitSequence()
         {
@@ -112,27 +119,32 @@ namespace JPD.Combinatorics
         abstract protected bool InitSeqItem(int seqItem);
         virtual protected uint IncrementSeqItem(int seqItem) { return ++internalCurrent[seqItem]; }
 
-        public CombinatoricBaseItemList Current;
+        public CombinatoricsOutputList<T> Current;
 
         #endregion
-
     }
 
-    public class CombinatoricBaseItemList
+    public class CombinatoricsOutputList<T>
     {
-        private CombinatoricsBase parent;
+        private Combinatorics<T> parent;
+        public List<T> ElementMap;
 
-        public CombinatoricBaseItemList(CombinatoricsBase p)
+        public CombinatoricsOutputList(Combinatorics<T> p)
         {
+            ElementMap = null;
             parent = p;
         }
 
-        public uint this[int index]
+        virtual public T this[int index]
         {
             get
             {
-                return parent.internalCurrent[index];
+                T tv = default(T);
+                if( ElementMap == null )
+                    return (T)Convert.ChangeType(parent.internalCurrent[index], tv.GetType());
+                return ElementMap[(int)parent.internalCurrent[index]];
             }
         }
+        public int Count { get { return parent.internalCurrent.Count; } }
     }
 }

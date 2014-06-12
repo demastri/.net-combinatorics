@@ -6,36 +6,26 @@ using System.Threading.Tasks;
 
 namespace JPD.Combinatorics
 {
-    public class MappedCombinations<T> : Combinations
+    public class Combinations : Combinations<uint>
     {
-        new public CombinatoricItemList<T> Current;
-        public List<T> ElementMap
-        {
-            get { return Current.ElementMap; }
-            set { Current.ElementMap = value; }
-        }
-
-        public MappedCombinations(uint howMany, uint total)
-            : base(howMany, total)
-        {
-            Current = new CombinatoricItemList<T>(this);
-        }
-        public MappedCombinations(uint howMany, uint total, bool dup)
-            : base(howMany, total, dup)
-        {
-            Current = new CombinatoricItemList<T>(this);
-        }
-    }
-
-    public class Combinations : CombinatoricsBase
-    {
-        // combinations is a selection of all order-independent arrangements of the given number of characters in a sequence
         public Combinations(uint howMany, uint total)
-            : base(howMany, total, false)
+            : base(howMany, total, false, null)
         {
         }
         public Combinations(uint howMany, uint total, bool dup)
-            : base(howMany, total, dup)
+            : base(howMany, total, dup, null)
+        {
+        }
+    }
+    public class Combinations<T> : Combinatorics<T>
+    {
+        // combinations is a selection of all order-independent arrangements of the given number of characters in a sequence
+        public Combinations(uint howMany, uint total, List<T> eMap)
+            : base(howMany, total, false, eMap)
+        {
+        }
+        public Combinations(uint howMany, uint total, bool dup, List<T> eMap)
+            : base(howMany, total, dup, eMap)
         {
         }
 

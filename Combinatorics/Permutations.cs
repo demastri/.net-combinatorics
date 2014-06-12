@@ -6,37 +6,29 @@ using System.Threading.Tasks;
 
 namespace JPD.Combinatorics
 {
-    public class MappedPermutations<T> : Permutations
+    public class Permutations : Permutations<uint>
     {
-        new public CombinatoricItemList<T> Current;
-        public List<T> ElementMap {
-            get { return Current.ElementMap; }
-            set { Current.ElementMap = value;  }
-        }
-
-        public MappedPermutations(List<uint> howMany, uint total)
-            : base(howMany, total)
+        public Permutations(List<uint> howMany)
+            : base(howMany, null)
         {
-            Current = new CombinatoricItemList<T>(this);
         }
-        public MappedPermutations(uint total)
-            : base(total)
+        public Permutations(uint total)
+            : base(total, null)
         {
-            Current = new CombinatoricItemList<T>(this);
         }
     }
 
-    public class Permutations : Variations
+    public class Permutations<T> : Variations<T>
     {
         // permutations is a special case of variations where you select all order-dependent arrangements of all characters in a sequence
-        public Permutations(List<uint> howMany, uint total)
-            : base(total, total, true)
+        public Permutations(List<uint> howMany, List<T> eMap)
+            : base((uint)howMany.Count, (uint)howMany.Count, true, eMap)
         {
             seqConsituents = howMany;
             // should be able to assert that howMant.Count == total
         }
-        public Permutations(uint total)
-            : base(total, total, false)
+        public Permutations(uint total, List<T> eMap)
+            : base(total, total, false, eMap)
         {
         }
 

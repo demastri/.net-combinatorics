@@ -42,7 +42,6 @@
     <Compile Include="Combinations.cs" />
     <Compile Include="CombinatoricsBase.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="MappedCombinatoric.cs" />
     <Compile Include="Permutations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Variations.cs" />
