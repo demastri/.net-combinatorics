@@ -23,14 +23,12 @@ namespace JPD.Combinatorics
         ///      so for aac (pick 2) -> aa ac aa ac ca ca
         ///      note here that the elements are not unique
 
-        /// the "basic" classes (Combinations Permutations and Variations) 
-        ///  manipulate sequences of uints from 0-(n-1)
-        ///  the (strongly typed as uint) results are in Current[]
-        /// you can always override these and manipulate any objects of your choosing by using the generic classes
-        ///  MappedCombinations<T> MappedPermutations<T> and MappedVariations<T>
-        ///  you have to provide an object mapping
-        ///  the results (appropriately typed to T) are in Current[], although it's a bit of a hack
-        ///  the mapping piece is really an aspect, although the superclasses each implement a bit of repeated code to implement it...
+        /// rewrote the classes so the interfaces make more intuitive sense
+        ///  The templated classes (Combinations<T> Permutations<T> and Variations<T>) now inherit directly 
+        ///    from CombinatoricsBase<T> - they handle strongly typed return sets (in T) in Current[]
+        ///    you (still) have to provide an object mapping
+        ///  The untemplated classes (Combinations Permutations and Variations) now simply instanate the <uint> version
+        ///    of their templated superclass, so when you just want to manipulate uints, no special class templating is needed
 
         #region external interface
 
