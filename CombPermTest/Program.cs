@@ -4,12 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JPD.Combinatorics;
+using JPD.Primes;
 
 namespace CombPermTest
 {
     class Program
     {
         static void Main(string[] args)
+        {
+            if (false)
+            {
+                DoCombinatoricsTest();
+            }
+            if (true)
+            {
+                JPD.Primes.Sieve.Test();
+            }
+
+        }
+        static void DoCombinatoricsTest()
         {
             bool printDetail = true;
 
@@ -84,7 +97,7 @@ namespace CombPermTest
             Console.WriteLine(">]");
 
             List<string> mySeq = new List<string>() { "a", "b", "c", "d", "e", "f" };
-            Combinations<string> newStringComb = new Combinations<string>(3, 5, true,  mySeq);
+            Combinations<string> newStringComb = new Combinations<string>(3, 5, true, mySeq);
             for (ct = 0, newStringComb.First(); !newStringComb.AtEnd; newStringComb.Next(), ct++)
                 if (printDetail)
                     PrintList(newStringComb.Current);
