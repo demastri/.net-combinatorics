@@ -12,14 +12,30 @@ namespace CombPermTest
     {
         static void Main(string[] args)
         {
-            if (false)
+            if (true)
             {
                 DoCombinatoricsTest();
             }
-            if (true)
+            if (false)
             {
                 JPD.Primes.Sieve.Test();
             }
+            if (true)
+            {
+                DoToListTest();
+            }
+
+        }
+        static void DoToListTest()
+        {
+            Combinations newComb = new Combinations(3, 5);
+            for (newComb.First(); !newComb.AtEnd; newComb.Next())
+                PrintList(newComb.Current.ToList());
+
+            List<string> myElts = new List<string>() { "a", "b", "a", "d", "e", "f" };
+            Combinations<string> newStringPerm = new Combinations<string>(3, 5, false, myElts);
+            for (newStringPerm.First(); !newStringPerm.AtEnd; newStringPerm.Next())
+                PrintList(newStringPerm.Current.ToList());
 
         }
         static void DoCombinatoricsTest()
@@ -105,6 +121,10 @@ namespace CombPermTest
         }
 
         private static void PrintList<T>(Combinatorics<T>.OutputList b)
+        {
+            PrintList(b.ToList());
+        }
+        private static void PrintList<T>(List<T> b)
         {
             Console.Write("<");
             string sep = "";

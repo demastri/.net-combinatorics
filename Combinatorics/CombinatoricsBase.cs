@@ -135,7 +135,10 @@ namespace JPD.Combinatorics
                 }
             }
             public int Count { get { return parent.internalCurrent.Count; } }
+            public List<T> ToList()
+            {
+                return parent.internalCurrent.Select( (item, index) => this[index]).ToList();
+            }
         }
     }
-
 }
