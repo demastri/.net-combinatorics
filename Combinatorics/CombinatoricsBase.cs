@@ -73,13 +73,13 @@ namespace JPD.Combinatorics
             from = total;
             pick = howMany;
 
-            AtEnd = from < pick;
+            AtEnd = from < pick && !allowRepetition;
             internalCurrent = null;
             Current = new OutputList(this, eMap);
         }
         protected virtual bool InitSequence()
         {
-            if (!(AtEnd = (pick > from)))
+            if (!(AtEnd = (pick > from && !allowRepetition)))
             {
                 internalCurrent = new List<uint>();
                 for (uint i = 0; i < pick; i++)

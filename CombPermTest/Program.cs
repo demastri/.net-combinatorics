@@ -14,17 +14,36 @@ namespace CombPermTest
         {
             if (true)
             {
+                DoStateVariationTest();
+            }
+            if (false)
+            {
                 DoCombinatoricsTest();
             }
             if (false)
             {
                 JPD.Primes.Sieve.Test();
             }
-            if (true)
+            if (false)
             {
                 DoToListTest();
             }
 
+        }
+        static void DoStateVariationTest()
+        {
+            int ct;
+
+            List<int> myElts = new List<int>() { -1, 0, 1 };
+            JPD.Combinatorics.Variations<int> newVar = new Variations<int>(2, 3, true, myElts);
+            for (ct = 0, newVar.First(); !newVar.AtEnd; newVar.Next(), ct++)
+                PrintList(newVar.Current.ToList());
+            Console.WriteLine(ct.ToString());
+
+            newVar = new Variations<int>(4, 3, true, myElts);
+            for (ct = 0, newVar.First(); !newVar.AtEnd; newVar.Next(), ct++)
+                PrintList(newVar.Current.ToList());
+            Console.WriteLine(ct.ToString());
         }
         static void DoToListTest()
         {
@@ -36,7 +55,6 @@ namespace CombPermTest
             Combinations<string> newStringPerm = new Combinations<string>(3, 5, false, myElts);
             for (newStringPerm.First(); !newStringPerm.AtEnd; newStringPerm.Next())
                 PrintList(newStringPerm.Current.ToList());
-
         }
         static void DoCombinatoricsTest()
         {
